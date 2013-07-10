@@ -1,0 +1,39 @@
+#site-topnav .navbar-inner {
+    min-height: 40px;
+    padding: 0 5%;
+    background: #69B373 url("/images/green-gradient.png") repeat-x right bottom;
+    border: none;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.navbar .brand {
+    padding: 0;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    color: #09784A;
+}
+.navbar .brand a {
+    display: block;
+    background: url("/images/logo-openhack.svg") no-repeat center left;
+    background-size: 1em;
+    padding-left: 1.5em;
+    color: #93F0CB;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #FFF, 0 3px 4px #09784A;
+    line-height: 1.5;
+}
+.header-logo-openhack {
+    margin: 8px 10px 7px;
+}
+#site-topnav .nav{
+    margin: 8px 10px 7px;
+}
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    text-decoration: none;
+    background: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}

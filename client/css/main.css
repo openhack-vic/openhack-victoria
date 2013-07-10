@@ -1,0 +1,16 @@
+.container {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+.navbar .container {
+    width: 980px;
+}
+
+main {
+    padding: 10px 5% 20px 5%;
+    border-top: solid 1px #FFF;
+    border-bottom: solid 1px #C3C3C3;
+    background: #F3F3F3 url("/images/white-gradient.png") repeat-x left top;
+}

@@ -1,0 +1,154 @@
+<head>
+    <title>Meet Meteor</title>
+    <meta name="description" content="Find a Meteor meetup near you">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:700,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+</head>
+
+<body>
+    <header>
+        {{> topNav }}
+    </header>
+
+    <main role="main">
+        <div class="container">
+            <div class="row-fluid">
+
+                <div class="span8">
+
+                    <section id="next-events">
+                        {{> nextMeetup }}
+                    </section>
+
+                    <section id="upcoming-events">
+                        {{> upcomingMeetup }}
+                    </section>
+
+                    <section id="previous-events">
+                        {{> previousMeetup }}
+                    </section>
+
+                </div>
+
+                <div class="span4">
+
+                    <section  id="login">
+                        {{> login}}
+                    </section>
+
+                    <section>
+                        {{> members}}
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a id="gh" class="pull-left" href="https://github.com/olizilla/meet-meteor" title="Code on GitHub"><img src="images/GitHub-Mark-32px.png" alt="GitHub logo"/></a>
+            <a class='logo' href="http://meteor.com"></a>
+        </div>
+    </footer>
+</body>
+
+<template name="topNav">
+    <div id="site-topnav" class="navbar">
+        <div class="navbar-inner">
+            <div class="container clearfix">
+                <h1 class="brand"><a class="brand" href="#">OpenHack Victoria</a></h1>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="nextMeetup">
+    {{#with nextEvent}}
+    <div class="block loading">
+        <h2>{{name}}</h2>
+        <p class="brand">
+            <span>{{group.name}}</span>
+            <span>{{#if venue}} at <a href="https://maps.google.com/?q={{venue.address_1}},{{venue.city}}">{{venue.name}}</a>
+                    {{else}}Venue TBC
+                    {{/if}}
+            </span>
+        </p>
+        {{{createMap venue}}}
+        <p>
+            <div class="attendee-count">{{yes_rsvp_count}} attending</div>
+            <time title="{{calandarFormat time}}" datetime="{{isoFormat time}}">{{dateTimeFormat time utc_offset timezone}}</time>
+        </p>
+        <div class="description">{{{description}}}</div>
+        <div class="countdown" title="{{calandarFormat time}}">{{fromNowFormat time}}</div>
+        <a class="meetup" href="{{event_url}}"></a>
+    </div>
+    {{/with}}
+</template>
+
+<template name="upcomingMeetup">
+    {{#if events.length}}
+    <div class="block loading">
+        <h3>{{events.length}} Upcoming Events</h3>
+        {{> photos}}
+        <ul>
+            {{#each events}}
+            <li>
+                <div class="time">{{group.name}} - {{dateFormat time}} - {{yes_rsvp_count}} attended {{#if rating.count}}-  {{toFixed rating.average}} stars{{/if}}</div>
+                <a class="name" href="{{event_url}}">{{name}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/if}}
+</template>
+
+<template name="previousMeetup">
+    {{#if events.length}}
+    <div class="block loading">
+        <h3>{{events.length}} Past Events</h3>
+        {{> photos}}
+        <ul>
+            {{#each events}}
+            <li>
+                <div class="time">{{group.name}} - {{dateFormat time}} - {{yes_rsvp_count}} attended {{#if rating.count}}-  {{toFixed rating.average}} stars{{/if}}</div>
+                <a class="name" href="{{event_url}}">{{name}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/if}}
+</template>
+
+<template name="photos">
+    {{#each photos}}
+    <a class="photo" href="{{highres_link}}"><img src="{{thumb_link}}" alt="" title="{{member.name}}"></a>
+    {{/each}}
+</template>
+
+<template name="login">
+    <div id="login">
+        <div class="block">
+            {{loginButtons}}
+        </div>
+    </div>
+</template>
+
+<template name="members">
+    {{#if members.length}}
+    <div class="block loading">
+        <h3>{{members.length}} Meteorites</h3>
+        <div id="members-graph">
+            <svg></svg>
+        </div>
+        {{#each members}}
+        <a title="{{name}}" class="photo member" href="{{#if other_services.twitter.identifier}}https://twitter.com/{{other_services.twitter.identifier}}{{else}}{{link}}{{/if}}">
+            {{#if photo.thumb_link}}<img src="{{photo.thumb_link}}">{{/if}}
+        </a>
+        {{/each}}
+    </div>
+    {{/if}}
+</template>
