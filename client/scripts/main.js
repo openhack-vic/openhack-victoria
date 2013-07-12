@@ -1,3 +1,9 @@
+Template.nextMeetup.helpers({
+  log: function (target) {
+    console.log(target);
+  }
+});
+
 // Prioritsed subscribtion... Get the importantThings first.
 Meteor.subscribe('importantThings', function(){
     console.log('Got the important things');
@@ -13,6 +19,15 @@ Template.nextMeetup.helpers({
   }
 });
 
+Template.nextMeetup.events({
+  'click .rsvp': function () {
+    console.log(this.venue.id)
+    Meteor.call('rsvpGet', this.venue.id, function (error, result) {
+        console.log('done')
+    } );
+  }
+});
+
 Template.upcomingMeetup.events = function(){
     return Events.find({time: { $gt: Date.now() }}, { sort: [['time', 'asc']], limit: 3}).fetch();
 };
@@ -25,22 +40,22 @@ Template.upcomingMeetup.fromNowFormat = function(ms){
     return moment(ms).fromNow();
 };
 
-Template.upcomingMeetup.calandarFormat = function(ms){
-    return moment(ms).calendar();
-};
-
-Template.upcomingMeetup.isoFormat = function(ms){
+Template.nextMeetup.isoFormat = function(ms){
     return moment(ms).format();
 };
 
-Template.upcomingMeetup.dateTimeFormat = function(ms, offset, timezone){
+Template.nextMeetup.dateTimeFormat = function(ms, offset, timezone){
     var date = moment(ms);
     var localDate = date.add('ms', parseInt(offset, 10));
     timezone = timezone ? ' (' + timezone + ')' : '';
     return localDate.format('MMMM Do YYYY, h:mm a') + timezone ;
 };
 
-Template.upcomingMeetup.createMap = function(venue) {
+Template.nextMeetup.calandarFormat = function(ms){
+    return moment(ms).calendar();
+};
+
+Template.nextMeetup.createMap = function(venue) {
 
     if(!venue) {
         return;
