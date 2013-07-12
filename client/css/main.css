@@ -7,10 +7,31 @@
 .navbar .container {
     width: 980px;
 }
-
 main {
     padding: 10px 5% 20px 5%;
     border-top: solid 1px #FFF;
     border-bottom: solid 1px #C3C3C3;
     background: #F3F3F3 url("/images/white-gradient.png") repeat-x left top;
+}
+.map {
+    width: 100%;
+    height: 100px;
+}
+section {
+    position: relative;
+}
+#next-event:after {
+    content: "Next Event";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 3px 7px;
+    font-weight: bold;
+    border: 1px solid #DDD;
+    background: #0EA265;
+    color: #93F0CB;
+    text-shadow: 0 -1px 0 #FFF, 0 3px 4px #09784A;
+    -webkit-border-radius: 0 4px 0 4px;
+    -moz-border-radius: 0 4px 0 4px;
+    border-radius: 0 4px 0 4px;
 }

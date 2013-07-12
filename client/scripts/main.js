@@ -22,7 +22,7 @@ Template.previousMeetup.events = function(){
 };
 
 Template.upcomingMeetup.fromNowFormat = function(ms){
-        return moment(ms).fromNow();
+    return moment(ms).fromNow();
 };
 
 Template.upcomingMeetup.calandarFormat = function(ms){
@@ -109,22 +109,12 @@ Template.members.members = function(){
     return Members.find({}, { sort: [['joined', 'desc']]}).fetch();
 };
 
-Template.nextMeetup.rendered = onLoad;
-
-Template.upcomingMeetup.rendered = onLoad;
-
-Template.previousMeetup.rendered = onLoad;
-
-Template.photos.rendered = onLoad;
-
 Template.members.rendered = function(){
-    $(this.findAll('.loading')).removeClass('loading');
-    membersGraph({width: 120, height: 50});
+    _.each(this.findAll('img'), function(img) {
+        var isHeightLimited = img.height > img.width;
+        
+    });
 };
-
-function onLoad(){
-    $(this.findAll('.loading')).removeClass('loading');
-}
 
 Meteor.startup(function(){
     // Connection status indicator... Add the status as a body class, and title attr to logo.

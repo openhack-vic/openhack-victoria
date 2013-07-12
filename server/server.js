@@ -1,7 +1,7 @@
 
 // Client subscribes to this first. 
 Meteor.publish("importantThings", function(){
-    return [Groups.find({}), Events.find({time: { $gte: Date.now() -  86400000 }})];
+    return [Groups.find({}), Events.find()];
 });
 
 // Once importantThings are sync'd then subscribe to the rest
@@ -127,7 +127,7 @@ function syncGroups(){
         sync('groups', { group_urlname: name, fields: 'sponsors,short_link', omit:'topics' }, Groups);
         sync('events', { group_urlname: name, fields: 'timezone', status: 'past,upcoming,cancelled' }, Events);
         sync('photos', { group_urlname: name }, Photos, 'photo_id');
-        // sync('members', { group_urlname: name, omit: 'topics' }, Members);
+        sync('members', { group_urlname: name, omit: 'topics' }, Members);
     });
 
     console.log('Next sync in '+ meetup.pollFrequency / 1000 +'s \n');    

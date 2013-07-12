@@ -1,6 +1,6 @@
 <head>
-    <title>Meet Meteor</title>
-    <meta name="description" content="Find a Meteor meetup near you">
+    <title>OpenHack Victoria</title>
+    <meta name="description" content="Come out. Hang. Sling code.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Raleway:700,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
@@ -18,7 +18,7 @@
 
                 <div class="span8">
 
-                    <section id="next-events">
+                    <section id="next-event">
                         {{> nextMeetup }}
                     </section>
 
@@ -30,16 +30,16 @@
                         {{> previousMeetup }}
                     </section>
 
+                    <section id="members">
+                        {{> members}}
+                    </section>
+
                 </div>
 
                 <div class="span4">
 
                     <section  id="login">
                         {{> login}}
-                    </section>
-
-                    <section>
-                        {{> members}}
                     </section>
 
                 </div>
@@ -68,7 +68,7 @@
 
 <template name="nextMeetup">
     {{#with nextEvent}}
-    <div class="block loading">
+    <div class="well">
         <h2>{{name}}</h2>
         <p class="brand">
             <span>{{group.name}}</span>
@@ -91,7 +91,7 @@
 
 <template name="upcomingMeetup">
     {{#if events.length}}
-    <div class="block loading">
+    <div class="well">
         <h3>{{events.length}} Upcoming Events</h3>
         {{> photos}}
         <ul>
@@ -108,7 +108,7 @@
 
 <template name="previousMeetup">
     {{#if events.length}}
-    <div class="block loading">
+    <div class="well">
         <h3>{{events.length}} Past Events</h3>
         {{> photos}}
         <ul>
@@ -131,7 +131,7 @@
 
 <template name="login">
     <div id="login">
-        <div class="block">
+        <div class="well">
             {{loginButtons}}
         </div>
     </div>
@@ -139,16 +139,24 @@
 
 <template name="members">
     {{#if members.length}}
-    <div class="block loading">
-        <h3>{{members.length}} Meteorites</h3>
-        <div id="members-graph">
-            <svg></svg>
-        </div>
-        {{#each members}}
-        <a title="{{name}}" class="photo member" href="{{#if other_services.twitter.identifier}}https://twitter.com/{{other_services.twitter.identifier}}{{else}}{{link}}{{/if}}">
-            {{#if photo.thumb_link}}<img src="{{photo.thumb_link}}">{{/if}}
-        </a>
-        {{/each}}
+    <div class="well">
+        <h3>{{members.length}} OpenHackers</h3>
+        <ul class="thumbnails" id="members-thumbnails">
+            {{#each members}}
+            <li>
+                <a title="{{name}}" class="member-link thumbnail photo member" href="{{#if other_services.twitter.identifier}}https://twitter.com/{{other_services.twitter.identifier}}{{else}}{{link}}{{/if}}">
+                    <div class="img-wrapper">
+                        {{#if photo.thumb_link}}
+                        <img src="{{photo.thumb_link}}">
+                        {{else}}
+                        <span class="muted">{{name}}</span>
+                        {{/if}}
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+        
     </div>
     {{/if}}
 </template>

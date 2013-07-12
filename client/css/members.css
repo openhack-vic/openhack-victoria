@@ -1,0 +1,19 @@
+.member-link {
+    display: table;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+}
+.img-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.thumbnails > li {
+    margin-bottom: 10px;
+}
+@media (min-width: 1200px) {
+    .thumbnails > li {
+        margin-left: 20px;
+    }
+}
