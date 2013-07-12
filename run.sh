@@ -1,2 +1,2 @@
 #!/bin/sh
-meteor --settings settings.json
+mrt --settings settings.json
