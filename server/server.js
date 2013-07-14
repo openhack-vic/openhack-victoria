@@ -1,3 +1,7 @@
+Meteor.publish("userData", function () {
+    return Meteor.users.find({_id: this.userId},
+        {fields: {'services.meetup.id': 1}});
+});
 
 // Client subscribes to this first. 
 Meteor.publish("importantThings", function(){
@@ -88,7 +92,7 @@ function updateOrInsert(collection, doc, idField){
 
     var existingDoc = collection.findOne(query);
     if (existingDoc){
-        collection.update(existingDoc._id, doc);
+        collection.update(existingDoc._id, { $set: doc });
     } else{
         collection.insert(doc);
     }
@@ -119,6 +123,18 @@ function sync(method, opts, collection, idField){
     });
 }
 
+function syncRsvp() {
+    var nextEvent = Events.findOne({time: { $gt: Date.now() }}, { sort: [['time', 'asc']]});
+
+    Meteor.http.get('https://api.meetup.com/2/rsvps',
+        { params: { event_id: nextEvent.id, key: Meteor.settings.meetupApiKey } },
+        function(error, response) {
+            console.log('Updated rsvps for latest event ' + nextEvent._id);
+            Events.update({_id: nextEvent._id}, {$set: {rsvps: response.data.results}})
+        }
+    );
+}
+
 // Sync all the things! For each group, sync the interesting data
 function syncGroups(){
     var groupUrlNames = Meteor.settings.public.groups;
@@ -128,6 +144,7 @@ function syncGroups(){
         sync('events', { group_urlname: name, fields: 'timezone', status: 'past,upcoming,cancelled' }, Events);
         sync('photos', { group_urlname: name }, Photos, 'photo_id');
         sync('members', { group_urlname: name, omit: 'topics' }, Members);
+        syncRsvp();
     });
 
     console.log('Next sync in '+ meetup.pollFrequency / 1000 +'s \n');    
@@ -152,4 +169,14 @@ Meteor.startup(function(){
     syncGroups();
     
     Meteor.setInterval(syncGroups, meetup.pollFrequency);
+});
+
+Meteor.methods({
+    rsvpGet: function(eventId) {
+        var user = Meteor.user();
+        var userid = user.services.meetup.id;
+        var token = user.services.meetup.accessToken;
+
+        return Meteor.http.get('https://api.meetup.com/ew/rsvp', { params: { event_id: eventId, access_token: encodeURIComponent(token) } });
+    }
 });

@@ -35,3 +35,6 @@ section {
     -moz-border-radius: 4px 0 4px 0;
     border-radius: 4px 0 4px 0;
 }
+.rsvp:hover {
+    text-decoration: underline;
+}
