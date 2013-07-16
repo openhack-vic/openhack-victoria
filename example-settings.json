@@ -1,0 +1,8 @@
+{
+	"meetupApiKey": "YOUR API KEY HERE",
+	"public": {
+		"groups":[
+			"OpenHack-Victoria"
+		]
+	}
+}
