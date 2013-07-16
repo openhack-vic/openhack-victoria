@@ -14,28 +14,10 @@ Getting started
 2. Clone this repo `$ git clone https://github.com/Sinetheta/openhack-victoria.git`, 
 2. Create a [meetup api key](http://www.meetup.com/meetup_api/key/).
 3. Create a [settings.json](https://github.com/Sinetheta/openhack-victoria/blob/master/example-settings.json) file.
-
-*example:*
-```json
-{
-    "meetupApiKey": "YOUR API KEY HERE",
-    "public": {
-        "groups":[
-            "OpenHack-Victoria"
-        ]
-    }
-}
-
-```
-
-4. Launch meteor, passing it the path to the settings.json
-
-```shell
-meteor --settings settings.json
-```
-
+4. Launch meteor, passing it the path to the settings.json `meteor --settings settings.json`
 or use the handy `run.sh`
-- If all is well, the app will pull the latest event data for Meteor London from Meetup.com, and render it for you at http://localhost:3000
+
+If all is well, the app will pull the latest event data for Meteor London from Meetup.com, and render it for you at http://localhost:3000
 
 Deploy to Meteor.com
 --------------------
