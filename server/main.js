@@ -5,7 +5,7 @@ Meteor.publish("userData", function () {
 
 // Client subscribes to this first. 
 Meteor.publish("importantThings", function(){
-    return [Groups.find({}), Events.find()];
+    return [Groups.find({}), Events.find(), Projects.find()];
 });
 
 // Once importantThings are sync'd then subscribe to the rest
