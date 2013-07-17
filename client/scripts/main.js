@@ -1,3 +1,9 @@
+//Session.setDefault('currentUserMeetupId', null);
+Session.set('currentUserMeetupId', function() {
+    var user = Meteor.user();
+    return user && user.services && user.services.meetup.id;
+});
+
 Meteor.autosubscribe(function() {
     Meteor.subscribe("userData");
 });
@@ -20,13 +26,13 @@ Template.nextMeetup.helpers({
         return nextEvent = Events.find({time: { $gt: Date.now() }}, {sort: [['time', 'asc']]}).fetch()[0];
     },
     myRsvp: function() {
-        var user = Meteor.user();
-        if(!user) return;
+        if(!Meteor.user()) return 'not logged in';
 
         var myRsvp = _.find(this.rsvps, function(rsvp) {
-            return rsvp.member.member_id === user.services.meetup.id
+            return rsvp.member.member_id === Session.get('currentUserMeetupId');
         });
-        return myRsvp && myRsvp.response;
+
+        return myRsvp? myRsvp.response: 'none';
     },
     rsvpButton: function(rsvp) {
         var button;
@@ -45,6 +51,7 @@ Template.nextMeetup.helpers({
             case 'none':
                 button = '<a ' + this.event_url + 'class="rsvp btn btn-inverse pull-right" title="visit event page" target="_blank"><i class="icon-spinner"></i> I havn\'t decided</a>';
             break;
+            case 'not logged in':
             default:
                 button = '<button class="rsvp signIn btn btn-disabled pull-right">Sign in to RSVP</button>';
         }
