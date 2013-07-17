@@ -1,0 +1,15 @@
+#projects:after {
+    content: "Projects";
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px 7px;
+    font-weight: bold;
+    border: 1px solid #DDD;
+    background: #0EA265;
+    color: #93F0CB;
+    text-shadow: 0 -1px 0 #FFF, 0 3px 4px #09784A;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+}

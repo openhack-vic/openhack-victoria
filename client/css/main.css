@@ -38,3 +38,11 @@ section {
 .rsvp:hover {
     text-decoration: underline;
 }
+
+.btn-mini {
+    padding: 0 6px;
+    font-size: 10.5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}

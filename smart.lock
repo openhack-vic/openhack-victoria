@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "font-awesome": {},
-      "marked": {}
+      "marked": {},
+      "github": {}
     },
     "packages": {
       "font-awesome": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/chuangbo/meteor-marked.git",
         "tag": "v0.2.8.2",
         "commit": "f5d9d6dbc013ad1bd568fa610eb4d8a479943f18"
+      },
+      "github": {
+        "git": "https://github.com/ndhoule/meteor-github.git",
+        "tag": "v0.1.8",
+        "commit": "7e995c903f287744387856870011abbf8ce8665b"
       }
     }
   }

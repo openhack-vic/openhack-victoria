@@ -165,9 +165,7 @@ Meteor.startup(function(){
     }
 
     meetup.startRequestQueue(); // We have to throttle the api requests
-
     syncGroups();
-    
     Meteor.setInterval(syncGroups, meetup.pollFrequency);
 });
 
