@@ -29,13 +29,19 @@ var github = {
     queue: [],
 
     getRepo: function repos(opts){
-        var Future = Npm.require("fibers/future");
+        var Future = Npm.require('fibers/future');
         var fut = new Future();
 
         this.queue.push(function(){
 
             console.log('Requesting repo info');
             github.api.repos.get(opts, function(err, res) {
+                if(err){
+                    var errorMsg = "Github explosion?";
+                    return console.log(errorMsg, response); 
+                    // TODO: find out what happens if the future never returns...
+                    // http://stackoverflow.com/questions/16269507/how-to-call-async-method-from-meteor-own-callbacks/
+                }
                 fut.ret(res);
                 console.log('Updating repo info');
             }); 
