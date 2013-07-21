@@ -1,13 +1,13 @@
 Template.projects.projects = function() {
-    return Projects.find().fetch();
+    return Projects.find();
 };
 
 Template.projects.isAuthor = function() {
-    var userId = Meteor.user()._id;
+    if(!Meteor.user()) return;
 
     return _.find(this.authors, function(author){
-        return userId == author.id;
-    }) ;
+        return Meteor.user()._id == author.id;
+    });
 };
 
 Template.projects.europeanDateFormat = function(ms) {
