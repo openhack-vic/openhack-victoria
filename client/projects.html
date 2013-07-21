@@ -1,0 +1,28 @@
+<template name="projects">
+    <div class="well">
+        <ul class="unstyled">
+            {{#each projects}}
+            <li>
+                {{#if isAuthor}}
+                <button class="edit btn btn-info btn-mini pull-right"><i class="icon-edit"></i> edit</button>
+                {{/if}}
+                <h3>{{ name }}</h3>
+                <div class="description">{{#markdown}}{{ description }}{{/markdown}}</div>
+                <div class="pull-right">
+                    Latest commit on {{europeanDateFormat github.info.updated_at}} 
+                    <span class="github-stats btn-group">
+                        <a class="repo-watchers btn btn-mini" href="{{ github.url }}"><i class="icon-github"></i></a>
+                        <a class="repo-watchers btn btn-mini" href="{{ github.url }}/watchers"><i class="icon-eye-open"></i> {{ github.info.watchers_count }}</a>
+                        <a class="repo-forks btn btn-mini" href="{{ github.url }}/forks"><i class="icon-code-fork"></i> {{ github.info.forks_count }}</a>
+                        <a href="{{ github.info.downloads_url}}" class="btn btn-mini"><i class="icon-download-alt"></i></a>
+                    </span>
+                </div>
+                <p>Authors:
+                    {{#each authors}} 
+                    <a class="author" href="http://www.meetup.com/OpenHack-Victoria/members/{{ meetupId }}">{{ name }}</a>
+                    {{/each}}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>

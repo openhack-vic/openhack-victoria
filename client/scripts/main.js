@@ -123,10 +123,16 @@ Template.nextMeetup.createMap = function(venue) {
         }).addTo(map);
 
         var latlon = [venue.lat, venue.lon];
+        var openHackIcon = L.icon({
+            iconUrl: '/images/marker-icon.png',
+            iconSize: [25, 41],
+            iconAnchor: [13, 40]
+        });
 
         var marker = L.marker(latlon, {
             title: venue.name,
-            riseOnHover: true
+            riseOnHover: true,
+            icon: openHackIcon
         });
 
         marker.addTo(map);
