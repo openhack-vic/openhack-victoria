@@ -145,27 +145,3 @@
         </div>
     </div>
 </template>
-
-<template name="members">
-    {{#if members.length}}
-    <div class="well">
-        <h3>{{members.length}} OpenHackers</h3>
-        <ul class="thumbnails" id="members-thumbnails">
-            {{#each members}}
-            <li>
-                <a title="{{name}}" class="member-link thumbnail photo member" href="{{link}}">
-                    <div class="img-wrapper">
-                        {{#if photo.thumb_link}}
-                        <img src="{{photo.thumb_link}}">
-                        {{else}}
-                        <span class="muted">{{name}}</span>
-                        {{/if}}
-                    </div>
-                </a>
-            </li>
-            {{/each}}
-        </ul>
-        
-    </div>
-    {{/if}}
-</template>

@@ -164,21 +164,6 @@ Template.photos.photos = function() {
     return Photos.find({}, {sort: [['created', 'desc']]}).fetch();
 };
 
-Template.members.members = function() {
-    return Members.find({}, {
-        sort: [
-            ['joined', 'desc']
-        ]
-    }).fetch();
-};
-
-Template.members.rendered = function() {
-    _.each(this.findAll('img'), function(img) {
-        var isHeightLimited = img.height > img.width;
-
-    });
-};
-
 Meteor.startup(function() {
     // Connection status indicator... Add the status as a body class, and title attr to logo.
     Deps.autorun(function() {
