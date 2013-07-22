@@ -20,12 +20,8 @@
                         >{{trunc other_services.twitter.identifier 13}}</a>
                     {{/if}}
                 </div>
-                {{#if isExpanded}}
-                <button class="btn btn-mini btn-inverse details-btn pull-right"><i class="icon-minus-sign-alt"></i></button>
-                <div class="member-bio">{{bio}}</div>
-                {{else}}
                 <button class="btn btn-mini btn-primary details-btn pull-right"><i class="icon-plus-sign-alt"></i></button>
-                {{/if}}
+                <div class="member-bio" style="display: none;">{{bio}}</div>
             </li>
             {{/each}}
         </ul>

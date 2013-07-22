@@ -1,5 +1,3 @@
-Session.set('expandedMemberDetails', {});
-
 Template.members.members = function() {
     return Members.find({}, {
         sort: [
@@ -14,18 +12,15 @@ Template.members.trunc = function(str, n) {
         return str.substring(0, n-3) + '...'; 
     }
 };
-Template.members.isExpanded = function() {
-    return Session.get('expandedMemberDetails')[this._id];
-};
-Template.members.expandMember = function() {
-    var expanded = Session.get('expandedMemberDetails');
-
-    expanded[this._id] = !expanded[this._id];
-    Session.set('expandedMemberDetails', expanded);
-};
 
 Template.members.events({
     'click .details-btn': function(e) {
-        Template.members.expandMember.call(this);
+        var member = $(e.target).closest('.member');
+        var isExpanded = !member.data('expanded');
+
+        member.data('expanded', isExpanded);
+        member.toggleClass('expanded');
+        member.find('.details-btn').toggleClass('btn-primary btn-inverse');
+        member.find('.member-bio')[isExpanded? 'slideDown': 'slideUp']();
     }
 });
