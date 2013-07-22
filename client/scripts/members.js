@@ -20,7 +20,8 @@ Template.members.events({
 
         member.data('expanded', isExpanded);
         member.toggleClass('expanded');
-        member.find('.details-btn').toggleClass('btn-primary btn-inverse');
+        member.find('.details-btn').toggleClass('btn-primary btn-inverse')
+            .find('i').toggleClass('icon-plus-sign-alt icon-minus-sign-alt')
         member.find('.member-bio')[isExpanded? 'slideDown': 'slideUp']();
     }
 });
