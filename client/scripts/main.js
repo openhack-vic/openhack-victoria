@@ -1,5 +1,9 @@
-Meteor.autosubscribe(function() {
-    Meteor.subscribe("userData");
+Meteor.subscribe('userData');
+
+Deps.autorun(function (c) {
+    var id = Meteor.user() && Meteor.user().services && Meteor.user().services.meetup.id;
+    Session.set('currentUserMeetupId', id);
+    if(id) c.stop();
 });
 
 // Prioritsed subscribtion... Get the importantThings first.
@@ -164,8 +168,6 @@ Template.photos.photos = function() {
 };
 
 Meteor.startup(function() {
-    Session.set('currentUserMeetupId', Meteor.user() && Meteor.user().services && Meteor.user().services.meetup.id);
-
     // Connection status indicator... Add the status as a body class, and title attr to logo.
     Deps.autorun(function() {
         var status = Meteor.status().status;
