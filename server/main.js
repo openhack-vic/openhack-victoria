@@ -125,6 +125,7 @@ function sync(method, opts, collection, idField){
 
 function syncRsvp() {
     var nextEvent = Events.findOne({time: { $gt: Date.now() }}, { sort: [['time', 'asc']]});
+    if(!nextEvent) return;
 
     Meteor.http.get('https://api.meetup.com/2/rsvps',
         { params: { event_id: nextEvent.id, key: Meteor.settings.meetupApiKey } },

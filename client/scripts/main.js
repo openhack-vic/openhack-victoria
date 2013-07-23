@@ -1,9 +1,3 @@
-//Session.setDefault('currentUserMeetupId', null);
-Session.set('currentUserMeetupId', function() {
-    var user = Meteor.user();
-    return user && user.services && user.services.meetup.id;
-});
-
 Meteor.autosubscribe(function() {
     Meteor.subscribe("userData");
 });
@@ -29,6 +23,11 @@ Template.nextMeetup.helpers({
         if(!Meteor.user()) return 'not logged in';
 
         var myRsvp = _.find(this.rsvps, function(rsvp) {
+            /*console.log({
+                checking: rsvp.member.member_id,
+                me: Session.get('currentUserMeetupId'),
+                bool: rsvp.member.member_id === Session.get('currentUserMeetupId')
+            })*/
             return rsvp.member.member_id === Session.get('currentUserMeetupId');
         });
 
@@ -40,16 +39,16 @@ Template.nextMeetup.helpers({
         // TODO: there has to be a better way to handle template "cases"
         switch(rsvp){
             case 'yes':
-                button = '<a ' + this.event_url + 'class="rsvp btn btn-success pull-right" title="visit event page" target="_blank"><i class="icon-check"></i> I\'m Attending</a>';
+                button = '<a href="' + this.event_url + '" class="rsvp btn btn-success pull-right" title="visit event page" target="_blank"><i class="icon-check"></i> I\'m Attending</a>';
             break;
             case 'maybe':
-                button = '<a ' + this.event_url + 'class="rsvp btn btn-warning pull-right" title="visit event page" target="_blank"><i class="icon-warning-sign"></i> I might go</a>';
+                button = '<a href="' + this.event_url + '" class="rsvp btn btn-warning pull-right" title="visit event page" target="_blank"><i class="icon-warning-sign"></i> I might go</a>';
             break;
             case 'no':
-                button = '<a ' + this.event_url + 'class="rsvp btn btn-danger pull-right" title="visit event page" target="_blank"><i class="icon-remove"></i> I\'m not going</a>';
+                button = '<a href="' + this.event_url + '" class="rsvp btn btn-danger pull-right" title="visit event page" target="_blank"><i class="icon-remove"></i> I\'m not going</a>';
             break;
             case 'none':
-                button = '<a ' + this.event_url + 'class="rsvp btn btn-inverse pull-right" title="visit event page" target="_blank"><i class="icon-spinner"></i> I havn\'t decided</a>';
+                button = '<a href="' + this.event_url + '" class="rsvp btn btn-inverse pull-right" title="visit event page" target="_blank"><i class="icon-spinner"></i> I havn\'t decided</a>';
             break;
             case 'not logged in':
             default:
@@ -165,6 +164,8 @@ Template.photos.photos = function() {
 };
 
 Meteor.startup(function() {
+    Session.set('currentUserMeetupId', Meteor.user() && Meteor.user().services && Meteor.user().services.meetup.id);
+
     // Connection status indicator... Add the status as a body class, and title attr to logo.
     Deps.autorun(function() {
         var status = Meteor.status().status;

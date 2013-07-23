@@ -46,3 +46,9 @@ section {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+input, textarea, .uneditable-input {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 2.5em;
+}
