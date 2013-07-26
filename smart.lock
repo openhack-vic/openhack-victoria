@@ -4,7 +4,8 @@
     "basePackages": {
       "font-awesome": {},
       "marked": {},
-      "github": {}
+      "github": {},
+      "select2": {}
     },
     "packages": {
       "font-awesome": {
@@ -21,6 +22,11 @@
         "git": "https://github.com/ndhoule/meteor-github.git",
         "tag": "v0.1.8",
         "commit": "7e995c903f287744387856870011abbf8ce8665b"
+      },
+      "select2": {
+        "git": "https://github.com/nate-strauser/meteor-select2.git",
+        "tag": "v3.4.0",
+        "commit": "a731bdb357cadd840aa5d9a3e893ab3df097a09c"
       }
     }
   }

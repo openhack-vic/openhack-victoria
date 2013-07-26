@@ -7,12 +7,14 @@
                 <button class="edit btn btn-info btn-mini pull-right"><i class="icon-edit"></i> edit</button>
                 {{/if}}
                 <h3>{{ title }}</h3>
+                {{#if github.info}}
+                <p class="muted">Latest commit on {{europeanDateFormat github.info.updated_at}}</p>
+                {{/if}}
                 <div class="description">{{#markdown}}{{ description }}{{/markdown}}</div>
                 {{#if github.info}}
                 <div class="pull-right">
-                    Latest commit on {{europeanDateFormat github.info.updated_at}} 
                     <span class="github-stats btn-group">
-                        <a class="repo-watchers btn btn-mini" href="{{ github.info.html_url }}"><i class="icon-github"></i></a>
+                        <a class="repo-link btn btn-mini" href="{{ github.info.html_url }}"><i class="icon-github"></i></a>
                         <a class="repo-watchers btn btn-mini" href="{{ github.info.html_url }}/watchers"><i class="icon-eye-open"></i> {{ github.info.watchers_count }}</a>
                         <a class="repo-forks btn btn-mini" href="{{ github.info.forks_url }}"><i class="icon-code-fork"></i> {{ github.info.forks_count }}</a>
                         <a href="{{ github.info.html_url}}/archive/master" class="btn btn-mini"><i class="icon-download-alt"></i></a>
@@ -25,6 +27,9 @@
                     {{#each authors}} 
                     <a class="author" href="http://www.meetup.com/OpenHack-Victoria/members/{{ meetupId }}">{{ name }}</a>
                     {{/each}}
+                <p>{{#each tags}}
+                    <span class="label label-{{ this }}"><i class="brand-icon-{{ this }}"></i> {{ this }}</span>
+                {{/each}}
             </li>
             {{/each}}
         </ul>
@@ -51,14 +56,21 @@
                     <input type="text" id="inputTitle" placeholder="Twitter Bootstrap" value="{{ title }}">
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="inputOwner">Github Owner</label>
-                    <input type="text" id="inputOwner" placeholder="twitter" value="{{ github.owner }}">
+                <div class="clearfix">
+                    <div class="control-group half-group pull-right">
+                        <label class="control-label" for="inputRepo">Github Repo</label>
+                        <input type="text" id="inputRepo" placeholder="bootstrap" value="{{ github.repo }}">
+                    </div>
+
+                    <div class="control-group half-group pull-right">
+                        <label class="control-label" for="inputOwner">Github Owner</label>
+                        <input type="text" id="inputOwner" placeholder="twitter" value="{{ github.owner }}">
+                    </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="inputRepo">Github Repo</label>
-                    <input type="text" id="inputRepo" placeholder="bootstrap" value="{{ github.repo }}">
+                    <label class="control-label" for="inputTechnologies">Technologies</label>
+                    {{> selectTechnology}}
                 </div>
 
                 <div class="control-group">
@@ -66,7 +78,7 @@
                     <textarea type="text" 
                         id="inputDescription"
                         placeholder="Sleek, intuitive, and powerful front-end framework for faster and easier web development." 
-                        rows=6
+                        rows=5
                     >{{ description }}</textarea>
                     <span class="help-block"><a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> accepted.</span>
                 </div>
@@ -82,4 +94,16 @@
             {{/if}}
         </div>
     </div>
+</template>
+
+<template name="selectTechnology">
+    {{log tags}}
+    <select id="inputTechnologies" multiple data-placeholder="Pick some tags for your project">
+        <option {{selected "Django"}}>Django</option>
+        <option {{selected "Meteor"}}>Meteor</option>
+        <option {{selected "PHP"}}>PHP</option>
+        <option {{selected "Python"}}>Python</option>
+        <option {{selected "Rails"}}>Rails</option>
+        <option {{selected "Ruby"}}>Ruby</option>
+    </select>
 </template>

@@ -14,6 +14,10 @@ Template.projects.europeanDateFormat = function(ms) {
     return ms? moment(ms).format('D/M/YY'): 'N/A';
 };
 
+Template.selectTechnology.selected = function(val) {
+    return this.tags && this.tags.indexOf(val) != -1? 'selected': '';
+}
+
 Template.projects.events = {
     'click .create': function() {
         var modal = Template.editModal({action: 'Create'});
@@ -21,6 +25,9 @@ Template.projects.events = {
         $(modal).modal()
             .on('hidden', function () {
                 $(this).remove();
+            })
+            .on('shown', function(){
+                $('#inputTechnologies').select2({width: '100%'});
             })
             .on('click', '.submit-project', submitProject);
     },
@@ -32,6 +39,9 @@ Template.projects.events = {
         $(modal).modal()
             .on('hidden', function () {
                 $(this).remove();
+            })
+            .on('shown', function(){
+                $('#inputTechnologies').select2({width: '100%'});
             })
             .on('click', '.save-project', this, saveProject);
     }
@@ -46,11 +56,11 @@ function saveProject(e) {
             owner: $('#inputOwner').val(),
             repo: $('#inputRepo').val(),
         },
-        description: $('#inputDescription').val()
+        description: $('#inputDescription').val(),
+        tags: $('#inputTechnologies').val()
     };
 
     Projects.update({_id: oldProject._id}, {$set: updatedProject});
-
     $(this).closest('.modal').modal('hide');
 }
 function submitProject(e) {
@@ -62,6 +72,7 @@ function submitProject(e) {
             repo: $('#inputRepo').val(),
         },
         description: $('#inputDescription').val(),
+        tags: $('#inputTechnologies').val(),
         owner: currentUser._id,
         authors: [{
             id: currentUser._id,
