@@ -11,23 +11,27 @@ var github = {
 
     queue: [],
 
-    getRepo: function repos(opts){
+    getRepo: function repos(opts, oldInfo){
         var Future = Npm.require('fibers/future');
         var fut = new Future();
 
         this.queue.push(function(){
 
             console.log('Requesting repo info');
-            github.api.repos.get(opts, function(err, res) {
-                if(err){
-                    var errorMsg = "Github explosion?";
-                    return console.log(errorMsg, response); 
+            try{
+                github.api.repos.get(opts, function(err, res) {
                     // TODO: find out what happens if the future never returns...
                     // http://stackoverflow.com/questions/16269507/how-to-call-async-method-from-meteor-own-callbacks/
-                }
-                fut.ret(res);
-                console.log('Updating repo info');
-            }); 
+                    console.log('Updating repo info');
+                    fut.ret(res);
+                });
+            }catch(e){
+                var errorMsg = "Github explosion?";
+                console.log(errorMsg, e);
+                console.log('keeping old data')
+                fut.ret(oldInfo);
+            }
+            
         });
         console.log('Queued github request');
 
@@ -50,7 +54,7 @@ function syncGithubs() {
     Projects.find().fetch().forEach(function(doc){
         if(!doc.github) return;
 
-        var info = github.getRepo({ user: doc.github.owner, repo: doc.github.repo});
+        var info = github.getRepo({ user: doc.github.owner, repo: doc.github.repo}, doc.github.info);
         Projects.update(doc._id, {$set: {'github.info': info}});
     });
 }
