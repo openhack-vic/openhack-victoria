@@ -52,3 +52,30 @@ input, textarea, .uneditable-input {
     box-sizing: border-box;
     min-height: 2.5em;
 }
+.divided-list li:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
+.divided-list li:not(:first-child) {
+    border-top: 1px solid rgba(255, 255, 255, 0.75);
+}
+#previous-events:after {
+    content: "Previous Events";
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px 7px;
+    font-weight: bold;
+    border: 1px solid #DDD;
+    background: #0EA265;
+    color: #93F0CB;
+    text-shadow: 0 -1px 0 #FFF, 0 3px 4px #09784A;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+}
+#previous-events > div {
+    padding-top: 2em;
+}
+.previous-events li {
+    padding: 1em 0;
+}

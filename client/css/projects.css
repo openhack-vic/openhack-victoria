@@ -16,12 +16,6 @@
 .project {
     padding: 1em 0;
 }
-.project:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
-}
-.project:not(:first-child) {
-    border-top: 1px solid rgba(255, 255, 255, 0.75);
-}
 .project h3 {
     margin-bottom: 0;
     line-height: 30px;

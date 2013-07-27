@@ -42,10 +42,6 @@
                         {{> photos }}
                     </section>
 
-                    <section id="upcoming-events">
-                        {{> upcomingMeetup }}
-                    </section>
-
                     <section id="previous-events">
                         {{> previousMeetup }}
                     </section>
@@ -98,31 +94,14 @@
     {{/with}}
 </template>
 
-<template name="upcomingMeetup">
-    {{#if events.length}}
-    <div class="well">
-        <h3>{{events.length}} Upcoming Events</h3>
-        <ul>
-            {{#each events}}
-            <li>
-                <div class="time">{{group.name}} - {{dateFormat time}} - {{yes_rsvp_count}} attending</div>
-                <a class="name" href="{{event_url}}">{{name}}</a>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
-    {{/if}}
-</template>
-
 <template name="previousMeetup">
     {{#if events.length}}
     <div class="well">
-        <h3>{{events.length}} Past Events</h3>
-        <ul>
+        <ul class="unstyled divided-list previous-events">
             {{#each events}}
             <li>
-                <div class="time">{{group.name}} - {{dateFormat time}} - {{yes_rsvp_count}} attended {{#if rating.count}}-  {{toFixed rating.average}} stars{{/if}}</div>
-                <a class="name" href="{{event_url}}">{{name}}</a>
+                <div class="time"><a class="name" href="{{event_url}}">{{name}}</a> - {{dateFormat time}} <br>
+                    {{yes_rsvp_count}} attended {{#if rating.count}}-  {{toFixed rating.average}} stars{{/if}}</div>
             </li>
             {{/each}}
         </ul>

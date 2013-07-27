@@ -68,16 +68,8 @@ Template.nextMeetup.events({
     }
 });
 
-Template.upcomingMeetup.events = function() {
-    return Events.find({time: {$gt: Date.now()}}, {sort: [['time', 'asc']], limit: 3}).fetch();
-};
-
 Template.previousMeetup.events = function() {
     return Events.find({time: { $lt: Date.now() }}, {sort: [['time', 'desc']]}).fetch();
-};
-
-Template.upcomingMeetup.fromNowFormat = function(ms) {
-    return moment(ms).fromNow();
 };
 
 Template.nextMeetup.isoFormat = function(ms) {
