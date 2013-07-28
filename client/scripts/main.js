@@ -76,12 +76,16 @@ Template.nextMeetup.isoFormat = function(ms) {
     return moment(ms).format();
 };
 
+Template.nextMeetup.fromNow = function(ms) {
+    return moment(ms).fromNow(true);
+};
+
 Template.nextMeetup.dateTimeFormat = function(ms, offset, timezone) {
     var date = moment(ms);
     var localDate = date.add('ms', parseInt(offset, 10));
 
     timezone = timezone ? ' (' + timezone + ')' : '';
-    return localDate.format('MMMM Do YYYY, h:mm a') + timezone;
+    return localDate.format('h:mm a on MMMM Do') + timezone;
 };
 
 Template.nextMeetup.calandarFormat = function(ms) {

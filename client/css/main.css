@@ -37,6 +37,26 @@ section {
 .rsvp:hover {
     text-decoration: underline;
 }
+.description {
+    margin-top: 2em;
+}
+#photos:after {
+    content: "Photos";
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px 7px;
+    font-weight: bold;
+    border: 1px solid #DDD;
+    background: #0EA265;
+    color: #93F0CB;
+    -webkit-border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px 0 4px 0;
+    border-radius: 4px 0 4px 0;
+}
+#photos > div {
+    padding-top: 2em;
+}
 
 .btn-mini {
     padding: 0 6px;
